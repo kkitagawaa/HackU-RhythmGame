@@ -31,11 +31,12 @@ public class NotesManager : MonoBehaviour
     public List<float> NotesTime = new List<float>();
     public List<GameObject> NotesObj = new List<GameObject>();
 
-    [SerializeField] private float NotesSpeed;
+    private float NotesSpeed;
     [SerializeField] GameObject noteObj;
 
     void OnEnable()
     {
+        NotesSpeed = GManager.instance.noteSpeed;
         noteNum = 0;
         songName = "menuettm";
         Load(songName);
@@ -47,6 +48,7 @@ public class NotesManager : MonoBehaviour
         Data inputJson = JsonUtility.FromJson<Data>(inputString);
 
         noteNum = inputJson.notes.Length;
+        GManager.instance.maxScore = noteNum * 5;//new!!
 
         for (int i = 0; i < inputJson.notes.Length; i++)
         {
