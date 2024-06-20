@@ -8,7 +8,7 @@ public class MusicManager : MonoBehaviour
     bool played;
     void Start()
     {
-        GManager.instance.Start = false;
+        GManager.Instance.Start = false;
         songName = "魔王魂  ファンタジー15";
         audio = GetComponent<AudioSource>();
         Music = Resources.Load<AudioClip>("Musics/" + songName);
@@ -20,8 +20,8 @@ public class MusicManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)&&!played)
         {
-            GManager.instance.Start = true;
-            GManager.instance.StartTime = Time.time;
+            GManager.Instance.Start = true;
+            GManager.Instance.StartTime = Time.time;
             played = true;
             audio.PlayOneShot(Music);
         }

@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class GManager : MonoBehaviour
 {
-    public static GManager instance = null;
+    private static GManager instance = null;
+    public static GManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     public float maxScore;
     public float ratioScore;
@@ -22,6 +29,7 @@ public class GManager : MonoBehaviour
     public int great;
     public int bad;
     public int miss;
+
     public void Awake()
     {
         if (instance == null)
@@ -30,8 +38,6 @@ public class GManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else
-        {
             Destroy(this.gameObject);
-        }
     }
 }
