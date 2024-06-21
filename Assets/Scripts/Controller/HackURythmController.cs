@@ -5,11 +5,11 @@ using UnityEngine;
 public class HackURythmController : MonoBehaviour
 {
     private JudgeModel aJudge;
-    private LaneLight[] aLaneLightList;
+    private LaneLightModel[] aLaneLightList;
     public void Start()
     {
         this.aJudge = FindObjectsByType<JudgeModel>(FindObjectsSortMode.None)[0];
-        this.aLaneLightList = FindObjectsByType<LaneLight>(FindObjectsSortMode.None);
+        this.aLaneLightList = FindObjectsByType<LaneLightModel>(FindObjectsSortMode.None);
     }
     public void Update()
     {
@@ -35,11 +35,16 @@ public class HackURythmController : MonoBehaviour
         }
         else
             this.aJudge.Judgement();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.Instance.StartPlay();
+        }
     }
 
-    private LaneLight findLaneLight(int aLaneNumber)
+    private LaneLightModel findLaneLight(int aLaneNumber)
     {
-        foreach (LaneLight aLaneLight in this.aLaneLightList)
+        foreach (LaneLightModel aLaneLight in this.aLaneLightList)
         {
             if (aLaneLight.LaneNumber == aLaneNumber)
                 return aLaneLight;

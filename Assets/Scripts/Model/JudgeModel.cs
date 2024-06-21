@@ -28,6 +28,7 @@ public class JudgeModel : MonoBehaviour
 
     public void Judgement(int laneNumber = -1)
     {
+        if (!GameManager.Instance.Start) return;
         if (laneNumber > 0)
         {
             this.aNotesManager.NoteList.GetRange(0, SAME_EXECUTE_COUNT - 1).ForEach(aNote =>
@@ -50,7 +51,6 @@ public class JudgeModel : MonoBehaviour
             this.popUpJudge("Miss", nearestNote.LaneNumber);
             this.aNotesManager.NoteList.Remove(nearestNote);
         }
-
     }
     private string CheckPassAction(float timeLag)
     {

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private float aNoteSpeed;
+    private float aNoteSpeed = 8;
     public float NoteSpeed
     {
         get
@@ -88,5 +88,12 @@ public class GameManager : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
+    }
+
+    public void StartPlay()
+    {
+        this.aStart = true;
+        this.aStartTime = Time.time;
+        MusicManager.Instance.Play("menuettm");
     }
 }
