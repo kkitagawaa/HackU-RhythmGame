@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using nkjzm.Tests;
 using UnityEngine;
+
+///	<summary>
+/// ノーツへのアクションに対して、音ゲーとしてのジャッジを行うModel。
+/// </summary>
 public class JudgeModel : MonoBehaviour
 {
     private static readonly int SAME_EXECUTE_COUNT = 4;
@@ -26,11 +30,11 @@ public class JudgeModel : MonoBehaviour
     {
         if (laneNumber > 0)
         {
-            this.aNotesManager.NoteList.GetRange(0, SAME_EXECUTE_COUNT).ForEach(aNote =>
+            this.aNotesManager.NoteList.GetRange(0, SAME_EXECUTE_COUNT - 1).ForEach(aNote =>
             {
                 if (aNote.LaneNumber == laneNumber)
                 {
-                    string passText = CheckPassAction(Math.Abs(Time.time - (aNote.ActionRequiredTime + GManager.Instance.StartTime)));
+                    string passText = CheckPassAction(Math.Abs(Time.time - (aNote.ActionRequiredTime + GameManager.Instance.StartTime)));
                     if (passText != null)
                     {
                         this.popUpJudge(passText, aNote.LaneNumber);
@@ -41,7 +45,7 @@ public class JudgeModel : MonoBehaviour
         }
 
         NoteData nearestNote = this.aNotesManager.NoteList[0];
-        if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
+        if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
         {
             this.popUpJudge("Miss", nearestNote.LaneNumber);
             this.aNotesManager.NoteList.Remove(nearestNote);

@@ -1,60 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class LaneLight : MonoBehaviour
 {
-    [SerializeField] private float Speed = 3;
-    [SerializeField] private int num = 0;
-    private Renderer rend;
-    private float alfa = 0;
-    void Start()
+    [SerializeField] private float aLaneAnimationSpeed = 3;
+    [SerializeField] private int aLaneNumber;
+    public int LaneNumber
     {
-        rend = GetComponent<Renderer>();
+        get
+        {
+            return this.aLaneNumber;
+        }
     }
-    void Update()
+    private Renderer aRenderer;
+    private float aRGBAlfa = 0;
+    public void Start()
+    {
+        this.aRenderer = GetComponent<Renderer>();
+        this.paintRequest(this.aRenderer, this.aRGBAlfa);
+    }
+    public void Update()
     {
 
-        if (!(rend.material.color.a <= 0))
+        if (!(this.aRGBAlfa <= 0))
         {
-            rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, alfa);
+            this.aRGBAlfa -= aLaneAnimationSpeed * Time.deltaTime;
+            this.paintRequest(this.aRenderer, this.aRGBAlfa);
         }
-
-        if (num == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                colorChange();
-            }
-        }
-        if (num == 1)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                colorChange();
-            }
-        }
-        if (num == 2)
-        {
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                colorChange();
-            }
-        }
-        if (num == 3)
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                colorChange();
-            }
-        }
-        alfa -= Speed * Time.deltaTime;
     }
 
-    void colorChange()
-    {
-        alfa = 0.3f;
-        rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b,alfa);
+    private void paintRequest(Renderer aRenderer, float aRGBAlfa){
+        Color aBaseColor = aRenderer.material.color;
+        aRenderer.material.color = new Color(aBaseColor.r, aBaseColor.g, aBaseColor.b ,aRGBAlfa);
 
+    }
+
+    public void LaneAction()
+    {
+        this.aRGBAlfa = 0.3f;
     }
 }

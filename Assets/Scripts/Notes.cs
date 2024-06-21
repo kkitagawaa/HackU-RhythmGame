@@ -1,24 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Notes : MonoBehaviour
 {
-    //ノーツのスピードを設定
-    float NoteSpeed = 8;
-    bool start;
+    private float aNoteSpeed = 8;
 
-    void Start()
+    public void Start()
     {
-        NoteSpeed = GManager.Instance.noteSpeed;
+        this.aNoteSpeed = GameManager.Instance.NoteSpeed;
     }
-    void Update()
+
+    public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            start = true;
-        //ノーツを移動させる
-        if (start)
-            transform.position -= transform.forward * Time.deltaTime * NoteSpeed;
+        if (GameManager.Instance.Start)
+            this.transform.position -= this.transform.forward * Time.deltaTime * this.aNoteSpeed;
 
     }
 }

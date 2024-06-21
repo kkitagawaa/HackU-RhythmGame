@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 ///	<summary>
 /// NoteEdiitorで生成された譜面構造を、クラス形式で定義するためのシリアライズ可能なクラス。
+/// ファイルパースに使うため、侵襲可能属性が存在する。
 /// </summary>
 [System.Serializable]
 public class NotesInfomation
