@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using nkjzm.Tests;
 using UnityEngine;
 
 ///	<summary>
@@ -18,10 +19,17 @@ public class NotesManagerModel : MonoBehaviour
     }
     private List<GameObject> aNoteObjects = new List<GameObject>();
 
-    [SerializeField] private GameObject aBaseNoteObject;
+    private Dictionary<string, GameObject> aBaseNoteObjects;
 
     public void OnEnable()
     {
+        this.aBaseNoteObjects = new Dictionary<string, GameObject>()
+        {
+            { "DESK", Utils.LoadPrefab<GameObject>("DeskNote") },
+            { "CLAP", Utils.LoadPrefab<GameObject>("ClapNote") },
+            { "PET", Utils.LoadPrefab<GameObject>("PETNote") },
+            // { "EMPTY_BOX", Utils.LoadPrefab<GameObject>("Miss") }
+        };
         Load("タイフーンパレード");
     }
 
@@ -56,7 +64,7 @@ public class NotesManagerModel : MonoBehaviour
             this.aNoteList.Add(aNote);
 
             float aDistance = aTime * aNotesSpeed;
-            this.aNoteObjects.Add(Instantiate(this.aBaseNoteObject, new Vector3(aNote.block - 1.5f, 0.55f, aDistance), Quaternion.identity));
+            this.aNoteObjects.Add(Instantiate(this.aBaseNoteObjects[aNote.TypeName], new Vector3(aNote.block - 1.5f, 0.55f, aDistance), Quaternion.identity));
         });
     }
 

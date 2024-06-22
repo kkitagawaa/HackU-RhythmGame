@@ -15,7 +15,17 @@ public class HackURythmController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             this.aJudge.Judgement("DESK");
-            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction());
+            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("DESK"));
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            this.aJudge.Judgement("CLAP");
+            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("CLAP"));
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.aJudge.Judgement("PET");
+            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("PET"));
         }
         
         this.aJudge.Judgement(null);
