@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HackURythmController : MonoBehaviour
@@ -18,25 +16,25 @@ public class HackURythmController : MonoBehaviour
             this.aJudge.Judgement(0);
             this.findLaneLight(0).LaneAction();
         }
-        else if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             this.aJudge.Judgement(1);
             this.findLaneLight(1).LaneAction();
         }
-        else if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             this.aJudge.Judgement(2);
             this.findLaneLight(2).LaneAction();
         }
-        else if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             this.aJudge.Judgement(3);
             this.findLaneLight(3).LaneAction();
         }
-        else
-            this.aJudge.Judgement();
+        
+        this.aJudge.Judgement();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsGameStart)
         {
             GameManager.Instance.StartPlay();
         }

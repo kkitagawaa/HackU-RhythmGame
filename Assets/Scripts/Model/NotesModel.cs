@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Notes : MonoBehaviour
 {
-    private float aNoteSpeed;
+    private float aNoteSpeed = 8;
 
     public void Start()
     {
@@ -11,7 +11,7 @@ public class Notes : MonoBehaviour
 
     public void Update()
     {
-        if (GameManager.Instance.Start)
+        if (GameManager.Instance.IsGameStart)
             this.transform.position -= this.transform.forward * Time.deltaTime * this.aNoteSpeed;
 
     }

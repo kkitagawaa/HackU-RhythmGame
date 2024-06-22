@@ -28,10 +28,10 @@ public class JudgeModel : MonoBehaviour
 
     public void Judgement(int laneNumber = -1)
     {
-        if (!GameManager.Instance.Start) return;
-        if (laneNumber > 0)
+        if (!GameManager.Instance.IsGameStart) return;
+        if (laneNumber >= 0)
         {
-            this.aNotesManager.NoteList.GetRange(0, SAME_EXECUTE_COUNT - 1).ForEach(aNote =>
+            this.aNotesManager.NoteList.GetRange(0, Math.Min(SAME_EXECUTE_COUNT - 1, this.aNotesManager.NoteList.Count)).ForEach(aNote =>
             {
                 if (aNote.LaneNumber == laneNumber)
                 {
@@ -44,12 +44,15 @@ public class JudgeModel : MonoBehaviour
                 }
             });
         }
-
-        NoteData nearestNote = this.aNotesManager.NoteList[0];
-        if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
+        else
         {
-            this.popUpJudge("Miss", nearestNote.LaneNumber);
-            this.aNotesManager.NoteList.Remove(nearestNote);
+
+            NoteData nearestNote = this.aNotesManager.NoteList[0];
+            if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
+            {
+                this.popUpJudge("Miss", nearestNote.LaneNumber);
+                this.aNotesManager.NoteList.Remove(nearestNote);
+            }
         }
     }
     private string CheckPassAction(float timeLag)

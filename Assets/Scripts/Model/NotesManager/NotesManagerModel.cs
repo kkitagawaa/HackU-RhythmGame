@@ -22,7 +22,7 @@ public class NotesManagerModel : MonoBehaviour
 
     public void OnEnable()
     {
-        Load("menuettm");
+        Load("タイフーンパレード");
     }
 
     /// <summary>

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private NotesManagerModel aNotesManager;
+
     private float aMaxScore;
     public float MaxScore
     {
@@ -46,16 +48,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool aStart = false;
-    public bool Start
+    private bool aIsGameStart = false;
+    public bool IsGameStart
     {
         get
         {
-            return this.aStart;
+            return this.aIsGameStart;
         }
         set
         {
-            this.aStart = value;
+            this.aIsGameStart = value;
         }
     }
     private float aStartTime;
@@ -90,10 +92,27 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
+    public void Start()
+    {
+        this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+    }
+
+    public void Update()
+    {
+        if (this.aIsGameStart)
+        {
+            if (this.aNotesManager.NoteList.Count <= 0)
+            {
+                this.aIsGameStart = false;
+                // MusicManager.Instance.Stop();
+            }
+        }
+    }
+
     public void StartPlay()
     {
-        this.aStart = true;
+        this.aIsGameStart = true;
         this.aStartTime = Time.time;
-        MusicManager.Instance.Play("menuettm");
+        MusicManager.Instance.Play("タイフーンパレード");
     }
 }
