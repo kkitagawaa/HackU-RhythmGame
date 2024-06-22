@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 ///	<summary>
 /// NoteEdiitorで生成された譜面構造を、クラス形式で定義するためのシリアライズ可能なクラス。
@@ -36,6 +37,19 @@ public class NoteData
         set
         {
             aActionRequiredTime = value;
+        }
+    }
+
+    private GameObject aNoteGameObject;
+    public GameObject NoteGameObject
+    {
+        get
+        {
+            return aNoteGameObject;
+        }
+        set
+        {
+            aNoteGameObject = value;
         }
     }
     public NoteData[] notes;

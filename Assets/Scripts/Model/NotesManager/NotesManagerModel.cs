@@ -17,7 +17,6 @@ public class NotesManagerModel : MonoBehaviour
             return aNoteList;
         }
     }
-    private List<GameObject> aNoteObjects = new List<GameObject>();
 
     private Dictionary<string, GameObject> aBaseNoteObjects;
 
@@ -60,11 +59,12 @@ public class NotesManagerModel : MonoBehaviour
             float aBeatSec = anInterval * aNote.LPB;
             float aTime = (aBeatSec * aNote.num / aNote.LPB) + aNotesInfomation.offset * 0.01f;
 
-            aNote.ActionRequiredTime = aTime;
-            this.aNoteList.Add(aNote);
-
             float aDistance = aTime * aNotesSpeed;
-            this.aNoteObjects.Add(Instantiate(this.aBaseNoteObjects[aNote.TypeName], new Vector3(aNote.block - 1.5f, 0.55f, aDistance), Quaternion.identity));
+            GameObject aNoteGameObject = Instantiate(this.aBaseNoteObjects[aNote.TypeName], new Vector3(aNote.block - 1.5f, 0.55f, aDistance), Quaternion.identity);
+
+            aNote.ActionRequiredTime = aTime;
+            aNote.NoteGameObject = aNoteGameObject;
+            this.aNoteList.Add(aNote);
         });
     }
 
