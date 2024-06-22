@@ -26,14 +26,14 @@ public class JudgeModel : MonoBehaviour
         };
     }
 
-    public void Judgement(int laneNumber = -1)
+    public void Judgement(string inputType)
     {
         if (!GameManager.Instance.IsGameStart) return;
-        if (laneNumber >= 0)
+        if (inputType != null)
         {
-            this.aNotesManager.NoteList.GetRange(0, Math.Min(SAME_EXECUTE_COUNT - 1, this.aNotesManager.NoteList.Count)).ForEach(aNote =>
+            this.aNotesManager.NoteList.GetRange(0, Math.Min(SAME_EXECUTE_COUNT, this.aNotesManager.NoteList.Count)).ForEach(aNote =>
             {
-                if (aNote.LaneNumber == laneNumber)
+                if (aNote.TypeName == inputType)
                 {
                     string passText = CheckPassAction(Math.Abs(Time.time - (aNote.ActionRequiredTime + GameManager.Instance.StartTime)));
                     if (passText != null)
