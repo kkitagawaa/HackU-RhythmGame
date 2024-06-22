@@ -39,6 +39,7 @@ public class JudgeModel : MonoBehaviour
                     if (passText != null)
                     {
                         this.popUpJudge(passText, aNote.LaneNumber);
+                        aNote.NoteGameObject.SetActive(false);
                         this.aNotesManager.NoteList.Remove(aNote);
                     }
                 }
