@@ -7,7 +7,15 @@ using System.Collections.Generic;
 [System.Serializable]
 public class NoteData
 {
+    private static readonly string[] TYPE_NAME = { "DESK", "CLAP", "PET", "EMPTY_BOX" };
     public int type;
+    public string TypeName
+    {
+        get
+        {
+            return TYPE_NAME[type - 1];
+        }
+    }
     public int num;
     public int block;
     public int LaneNumber
