@@ -73,7 +73,8 @@ public class JudgeModel : MonoBehaviour
 
     private void particleBurst(NoteData aNote)
     {
-        // something to do
+        GameObject particleEffect = Utils.LoadPrefab<GameObject>("ParticleEffect");
+        Instantiate(particleEffect, aNote.NoteGameObject.transform.position, Quaternion.identity);
     }
 
     private void popUpJudge(string judgeKey, int laneNumber)//判定を表示する
