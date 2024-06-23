@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
 
     private NotesManagerModel aNotesManager;
 
+    private UDPActionServer anUdpActionServer;
+    private PythonRunner aPythonRunner;
+
+    // private HackURythmController aHackURythmController;
+
     private float aMaxScore;
     public float MaxScore
     {
@@ -39,7 +44,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private float aNoteSpeed = 8;
+    private float aNoteSpeed = 4;
     public float NoteSpeed
     {
         get
@@ -95,6 +100,21 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+
+        // welknown port 以外の範囲で、ランダムなポートを指定
+        int aServerPort = Random.Range(50000, 55000);
+        int aReceiverPort = Random.Range(55001, 60000);
+
+        this.anUdpActionServer = UDPActionServer.Start(aServerPort, aReceiverPort, HackURythmController.Instance.JudgeCheck);
+
+        this.aPythonRunner = PythonRunner.Run(@"workingdir", "main.py",
+                                              new string[] {aServerPort.ToString(), aReceiverPort.ToString() });
+    }
+
+    public void OnDestroy()
+    {
+        this.aPythonRunner.Stop();
+        this.anUdpActionServer.Stop();
     }
 
     public void Update()
