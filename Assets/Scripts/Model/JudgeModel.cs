@@ -59,6 +59,7 @@ public class JudgeModel : MonoBehaviour
             {
                 this.popUpJudge("Miss", nearestNote.LaneNumber);
                 this.resetCombo();
+                GameManager.Instance.Miss++;
                 this.aNotesManager.NoteList.Remove(nearestNote);
             }
         }
@@ -96,12 +97,15 @@ public class JudgeModel : MonoBehaviour
         {
             case "Perfect":
                 GameManager.Instance.RatioScore += 5;
+                GameManager.Instance.Perfect++;
                 break;
             case "Great":
                 GameManager.Instance.RatioScore += 3;
+                GameManager.Instance.Great++;
                 break;
             case "Bad":
                 GameManager.Instance.RatioScore += 1;
+                GameManager.Instance.Bad++;
                 break;
         }
         GameManager.Instance.Combo++;

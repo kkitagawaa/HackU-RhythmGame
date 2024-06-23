@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float aEndTime;
+
     private int combo;
     public float Combo
     {
@@ -98,10 +101,58 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // private int perfect;
-    // private int great;
-    // private int bad;
-    // private int miss;
+    private int perfect;
+    public float Perfect
+    {
+        get
+        {
+            return this.perfect;
+        }
+        set
+        {
+            this.perfect = (int)value;
+        }
+    }
+    private int great;
+    public float Great
+    {
+        get
+        {
+            return this.great;
+        }
+        set
+        {
+            this.great = (int)value;
+        }
+    }
+    private int bad;
+    public float Bad
+    {
+        get
+        {
+            return this.bad;
+        }
+        set
+        {
+            this.bad = (int)value;
+        }
+    }
+    private int miss;
+    public float Miss
+    {
+        get
+        {
+            return this.miss;
+        }
+        set
+        {
+            this.miss = (int)value;
+        }
+    }
+    
+    [SerializeField] GameObject finish;
+
+    private bool hasFished = false;
 
     public void Awake()
     {
@@ -117,6 +168,8 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+        this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
+
     }
 
     public void Update()
@@ -128,13 +181,47 @@ public class GameManager : MonoBehaviour
                 this.aIsGameStart = false;
                 // MusicManager.Instance.Stop();
             }
+
+            if (!hasFished && (Time.time > this.aStartTime + this.aEndTime))
+            {
+                Debug.Log("Finish");
+                hasFished = true;
+                this.Finish();
+                
+            }
         }
     }
 
     public void StartPlay()
     {
+        this.hasFished = false;
         this.aIsGameStart = true;
         this.aStartTime = Time.time;
+        // this.resetStats();
         MusicManager.Instance.Play("タイフーンパレード");
+    }
+
+    public void Finish()
+    {
+        // this.aIsGameStart = false;
+        this.finish.SetActive(true);
+        Invoke("ResultScene", 3.0f);
+    }
+
+    private void resetStats()
+    {
+        this.aMaxScore = 0;
+        this.aRatioScore = 0;
+        this.combo = 0;
+        this.score = 0;
+        this.perfect = 0;
+        this.great = 0;
+        this.bad = 0;
+        this.miss = 0;
+    }
+
+    private void ResultScene()
+    {
+        SceneManager.LoadScene("Result");
     }
 }
