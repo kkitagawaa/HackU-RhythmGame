@@ -35,6 +35,8 @@ public class JudgeModel : MonoBehaviour
         if (!GameManager.Instance.IsGameStart) return;
         if (inputType != null)
         {
+            MusicManager.Instance.Play("キャンセル2");
+
             this.aNotesManager.NoteList.GetRange(0, Math.Min(SAME_EXECUTE_COUNT, this.aNotesManager.NoteList.Count)).ForEach(aNote =>
             {
                 if (aNote.TypeName == inputType)
