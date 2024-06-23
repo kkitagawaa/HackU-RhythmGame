@@ -73,8 +73,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // private int combo;
-    // private int score;
+    private int combo;
+    public float Combo
+    {
+        get
+        {
+            return this.combo;
+        }
+        set
+        {
+            this.combo = (int)value;
+        }
+    }
+    private int score;
+    public float Score
+    {
+        get
+        {
+            return this.score;
+        }
+        set
+        {
+            this.score = (int)value;
+        }
+    }
 
     // private int perfect;
     // private int great;

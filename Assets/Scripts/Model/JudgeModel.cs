@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using nkjzm.Tests;
 using UnityEngine;
+using TMPro;
 
 ///	<summary>
 /// ノーツへのアクションに対して、音ゲーとしてのジャッジを行うModel。
@@ -12,6 +13,9 @@ public class JudgeModel : MonoBehaviour
     private Dictionary<string, GameObject> aJudgePopupObjects;
 
     private NotesManagerModel aNotesManager;
+
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI comboText;
 
     public void Start()
     {
@@ -39,6 +43,7 @@ public class JudgeModel : MonoBehaviour
                     if (passText != null)
                     {
                         this.presentationJudge(aNote, passText);
+                        this.calculateScoreAndCombo(passText);
                         this.aNotesManager.NoteList.Remove(aNote);
                     }
                 }
@@ -51,6 +56,7 @@ public class JudgeModel : MonoBehaviour
             if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
             {
                 this.popUpJudge("Miss", nearestNote.LaneNumber);
+                this.resetCombo();
                 this.aNotesManager.NoteList.Remove(nearestNote);
             }
         }
@@ -80,5 +86,31 @@ public class JudgeModel : MonoBehaviour
     private void popUpJudge(string judgeKey, int laneNumber)//判定を表示する
     {
         Instantiate(aJudgePopupObjects[judgeKey], new Vector3(laneNumber - 1.5f, 0.76f, 0.15f), Quaternion.Euler(45, 0, 0));
+    }
+
+    private void calculateScoreAndCombo(string judgeKey)
+    {
+        switch (judgeKey)
+        {
+            case "Perfect":
+                GameManager.Instance.RatioScore += 5;
+                break;
+            case "Great":
+                GameManager.Instance.RatioScore += 3;
+                break;
+            case "Bad":
+                GameManager.Instance.RatioScore += 1;
+                break;
+        }
+        GameManager.Instance.Combo++;
+        GameManager.Instance.Score = (int)Math.Round(1000000 * Math.Floor(GameManager.Instance.RatioScore / GameManager.Instance.MaxScore * 1000000) / 1000000);
+        comboText.text = GameManager.Instance.Combo.ToString();
+        scoreText.text = GameManager.Instance.Score.ToString();
+    }
+
+    private void resetCombo()
+    {
+        GameManager.Instance.Combo = 0;
+        comboText.text = GameManager.Instance.Combo.ToString();
     }
 }
