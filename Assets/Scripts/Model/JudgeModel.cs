@@ -38,7 +38,7 @@ public class JudgeModel : MonoBehaviour
                     string passText = CheckPassAction(Math.Abs(Time.time - (aNote.ActionRequiredTime + GameManager.Instance.StartTime)));
                     if (passText != null)
                     {
-                        this.popUpJudge(passText, aNote.LaneNumber);
+                        this.presentationJudge(aNote, passText);
                         this.aNotesManager.NoteList.Remove(aNote);
                     }
                 }
@@ -62,6 +62,19 @@ public class JudgeModel : MonoBehaviour
         if (timeLag <= 0.08) return "Great";
         if (timeLag <= 0.10) return "Bad";
         return null;
+    }
+
+    private void presentationJudge(NoteData aNote, string judgeKey)
+    {
+        this.popUpJudge(judgeKey, aNote.LaneNumber);
+        this.particleBurst(aNote);
+        aNote.NoteGameObject.SetActive(false);
+    }
+
+    private void particleBurst(NoteData aNote)
+    {
+        GameObject particleEffect = Utils.LoadPrefab<GameObject>("ParticleEffect");
+        Instantiate(particleEffect, aNote.NoteGameObject.transform.position, Quaternion.identity);
     }
 
     private void popUpJudge(string judgeKey, int laneNumber)//判定を表示する
