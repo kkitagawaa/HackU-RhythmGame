@@ -39,19 +39,19 @@ public class HackURythmController : MonoBehaviour
     }
     public void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.D))
-        // {
-        //     this.JudgeCheck("DESK");
-        // }
-        // if (Input.GetKeyDown(KeyCode.F))
-        // {
-        //     this.JudgeCheck("CLAP");
-        // }
-        // if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //     this.aJudge.Judgement("PET");
-        //     this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("PET"));
-        // }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            this.JudgeCheck("DESK");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            this.JudgeCheck("CLAP");
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.aJudge.Judgement("PET");
+            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("PET"));
+        }
         
         this.aJudge.Judgement(null);
 
