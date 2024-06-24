@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private NotesManagerModel aNotesManager;
 
     private UDPActionServer anUdpActionServer;
-    private PythonRunner aPythonRunner;
+    private ExecutableRunner anExecutableRunner;
 
     // private HackURythmController aHackURythmController;
 
@@ -99,6 +99,10 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        if (!AudioIdentifierInstaller.IsInstall())
+        {
+            new AudioIdentifierInstaller().Install();
+        }
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
 
         // welknown port 以外の範囲で、ランダムなポートを指定
@@ -107,13 +111,13 @@ public class GameManager : MonoBehaviour
 
         this.anUdpActionServer = UDPActionServer.Start(aServerPort, aReceiverPort, HackURythmController.Instance.JudgeCheck);
 
-        this.aPythonRunner = PythonRunner.Run(@"workingdir", "main.py",
-                                              new string[] {aServerPort.ToString(), aReceiverPort.ToString() });
+        this.anExecutableRunner = ExecutableRunner.Run(AudioIdentifierInstaller.ExecutablePath(),
+                                              new string[] { aServerPort.ToString(), aReceiverPort.ToString() });
     }
 
     public void OnDestroy()
     {
-        this.aPythonRunner.Stop();
+        this.anExecutableRunner.Stop();
         this.anUdpActionServer.Stop();
     }
 
