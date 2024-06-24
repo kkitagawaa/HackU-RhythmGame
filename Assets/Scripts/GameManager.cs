@@ -14,32 +14,6 @@ public class GameManager : MonoBehaviour
 
     private NotesManagerModel aNotesManager;
 
-    private float aMaxScore;
-    public float MaxScore
-    {
-        get
-        {
-            return this.aMaxScore;
-        }
-        set
-        {
-            this.aMaxScore = value;
-        }
-    }
-
-    private float aRatioScore;
-    public float RatioScore
-    {
-        get
-        {
-            return this.aRatioScore;
-        }
-        set
-        {
-            this.aRatioScore = value;
-        }
-    }
-
     private float aNoteSpeed = 8;
     public float NoteSpeed
     {
@@ -76,79 +50,6 @@ public class GameManager : MonoBehaviour
 
     private float aEndTime;
 
-    private int combo;
-    public float Combo
-    {
-        get
-        {
-            return this.combo;
-        }
-        set
-        {
-            this.combo = (int)value;
-        }
-    }
-    private int score;
-    public float Score
-    {
-        get
-        {
-            return this.score;
-        }
-        set
-        {
-            this.score = (int)value;
-        }
-    }
-
-    private int perfect;
-    public float Perfect
-    {
-        get
-        {
-            return this.perfect;
-        }
-        set
-        {
-            this.perfect = (int)value;
-        }
-    }
-    private int great;
-    public float Great
-    {
-        get
-        {
-            return this.great;
-        }
-        set
-        {
-            this.great = (int)value;
-        }
-    }
-    private int bad;
-    public float Bad
-    {
-        get
-        {
-            return this.bad;
-        }
-        set
-        {
-            this.bad = (int)value;
-        }
-    }
-    private int miss;
-    public float Miss
-    {
-        get
-        {
-            return this.miss;
-        }
-        set
-        {
-            this.miss = (int)value;
-        }
-    }
     
     [SerializeField] GameObject finish;
 
@@ -190,7 +91,6 @@ public class GameManager : MonoBehaviour
         this.hasFished = false;
         this.aIsGameStart = true;
         this.aStartTime = Time.time;
-        this.Reset();
         MusicManager.Instance.Play("タイフーンパレード");
     }
 
@@ -206,14 +106,7 @@ public class GameManager : MonoBehaviour
     {
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
         this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
-
-        this.aRatioScore = 0;
-        this.combo = 0;
-        this.score = 0;
-        this.perfect = 0;
-        this.great = 0;
-        this.bad = 0;
-        this.miss = 0;
+        ScoreModel.Instance.Reset();
     }
 
     private void ResultScene()

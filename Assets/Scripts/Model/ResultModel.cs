@@ -14,11 +14,12 @@ public class ResultModel : MonoBehaviour
 
     private void OnEnable()
     {
-        scoreText.text = GameManager.Instance.Score.ToString();
-        perfectText.text = GameManager.Instance.Perfect.ToString();
-        greatText.text = GameManager.Instance.Great.ToString();
-        badText.text = GameManager.Instance.Bad.ToString();
-        missText.text = GameManager.Instance.Miss.ToString();
+        ScoreModel aScoreModel = ScoreModel.Instance;
+        scoreText.text = aScoreModel.Score.ToString();
+        perfectText.text = aScoreModel.JudgeCounts["Perfect"].ToString();
+        greatText.text = aScoreModel.JudgeCounts["Great"].ToString();
+        badText.text = aScoreModel.JudgeCounts["Bad"].ToString();
+        missText.text = aScoreModel.JudgeCounts["Miss"].ToString();
     }
 
     public void Retry()

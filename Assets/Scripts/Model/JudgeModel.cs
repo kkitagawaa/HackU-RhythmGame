@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using nkjzm.Tests;
 using UnityEngine;
-using TMPro;
 
 ///	<summary>
 /// ノーツへのアクションに対して、音ゲーとしてのジャッジを行うModel。
@@ -13,9 +12,6 @@ public class JudgeModel : MonoBehaviour
     private Dictionary<string, GameObject> aJudgePopupObjects;
 
     private NotesManagerModel aNotesManager;
-
-    [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] TextMeshProUGUI comboText;
 
     public void Start()
     {
@@ -35,7 +31,7 @@ public class JudgeModel : MonoBehaviour
         if (!GameManager.Instance.IsGameStart) return;
         if (inputType != null)
         {
-            MusicManager.Instance.Play("キャンセル2");
+            MusicManager.Instance.Play("tap");
 
             this.aNotesManager.NoteList.GetRange(0, Math.Min(SAME_EXECUTE_COUNT, this.aNotesManager.NoteList.Count)).ForEach(aNote =>
             {
@@ -44,8 +40,8 @@ public class JudgeModel : MonoBehaviour
                     string passText = CheckPassAction(Math.Abs(Time.time - (aNote.ActionRequiredTime + GameManager.Instance.StartTime)));
                     if (passText != null)
                     {
-                        this.presentationJudge(aNote, passText);
-                        this.calculateScoreAndCombo(passText);
+                        ScoreModel.Instance.AddScore(passText);
+                        this.PresentationJudge(aNote, passText);
                         this.aNotesManager.NoteList.Remove(aNote);
                     }
                 }
@@ -57,9 +53,8 @@ public class JudgeModel : MonoBehaviour
             NoteData nearestNote = this.aNotesManager.NoteList[0];
             if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
             {
-                this.popUpJudge("Miss", nearestNote.LaneNumber);
-                this.resetCombo();
-                GameManager.Instance.Miss++;
+                ScoreModel.Instance.AddScore("Miss");
+                this.PopUpJudge("Miss", nearestNote.LaneNumber);
                 this.aNotesManager.NoteList.Remove(nearestNote);
             }
         }
@@ -73,50 +68,21 @@ public class JudgeModel : MonoBehaviour
         return null;
     }
 
-    private void presentationJudge(NoteData aNote, string judgeKey)
+    private void PresentationJudge(NoteData aNote, string judgeKey)
     {
-        this.popUpJudge(judgeKey, aNote.LaneNumber);
-        this.particleBurst(aNote);
+        this.PopUpJudge(judgeKey, aNote.LaneNumber);
+        this.ParticleBurst(aNote);
         aNote.NoteGameObject.SetActive(false);
     }
 
-    private void particleBurst(NoteData aNote)
+    private void ParticleBurst(NoteData aNote)
     {
         GameObject particleEffect = Utils.LoadPrefab<GameObject>("ParticleEffect");
         Instantiate(particleEffect, aNote.NoteGameObject.transform.position, Quaternion.identity);
     }
 
-    private void popUpJudge(string judgeKey, int laneNumber)//判定を表示する
+    private void PopUpJudge(string judgeKey, int laneNumber) //判定を表示する
     {
         Instantiate(aJudgePopupObjects[judgeKey], new Vector3(laneNumber - 1.5f, 0.76f, 0.15f), Quaternion.Euler(45, 0, 0));
-    }
-
-    private void calculateScoreAndCombo(string judgeKey)
-    {
-        switch (judgeKey)
-        {
-            case "Perfect":
-                GameManager.Instance.RatioScore += 5;
-                GameManager.Instance.Perfect++;
-                break;
-            case "Great":
-                GameManager.Instance.RatioScore += 3;
-                GameManager.Instance.Great++;
-                break;
-            case "Bad":
-                GameManager.Instance.RatioScore += 1;
-                GameManager.Instance.Bad++;
-                break;
-        }
-        GameManager.Instance.Combo++;
-        GameManager.Instance.Score = (int)Math.Round(1000000 * Math.Floor(GameManager.Instance.RatioScore / GameManager.Instance.MaxScore * 1000000) / 1000000);
-        comboText.text = GameManager.Instance.Combo.ToString();
-        scoreText.text = GameManager.Instance.Score.ToString();
-    }
-
-    private void resetCombo()
-    {
-        GameManager.Instance.Combo = 0;
-        comboText.text = GameManager.Instance.Combo.ToString();
     }
 }
