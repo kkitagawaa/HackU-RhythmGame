@@ -5,7 +5,7 @@ using UnityEngine;
 internal class UnityMainThread : MonoBehaviour
 {
     private static UnityMainThread instance = null;
-				public static UnityMainThread Instance
+    public static UnityMainThread Instance
     {
         get
         {
@@ -13,13 +13,13 @@ internal class UnityMainThread : MonoBehaviour
         }
     }
     private Queue<Action> aJobs = new Queue<Action>();
-				public Queue<Action> Jobs
-				{
-								get
-								{
-												return this.aJobs;
-								}
-				}
+    public Queue<Action> Jobs
+    {
+        get
+        {
+            return this.aJobs;
+        }
+    }
 
     public void Awake()
     {

@@ -33,7 +33,7 @@ public class HackURythmController : MonoBehaviour
 
     public void JudgeCheck(string inputType)
     {
-        Debug.Log(inputType);
+        // Debug.Log(inputType);
         this.aJudge.Judgement(inputType);
         this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction(inputType));
     }
