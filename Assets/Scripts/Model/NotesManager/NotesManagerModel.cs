@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using nkjzm.Tests;
 using UnityEngine;
@@ -29,7 +28,7 @@ public class NotesManagerModel : MonoBehaviour
             { "PET", Utils.LoadPrefab<GameObject>("PETNote") },
             // { "EMPTY_BOX", Utils.LoadPrefab<GameObject>("Miss") }
         };
-        Load("タイフーンパレード");
+        this.Load("タイフーンパレード");
     }
 
     /// <summary>
@@ -74,6 +73,6 @@ public class NotesManagerModel : MonoBehaviour
     /// <param name="noteNum">ノーツの数</param>
     private void SetMaxScore(int noteNum)
     {
-        GameManager.Instance.MaxScore = noteNum * 5;
+        ScoreModel.Instance.MaxScore = noteNum * 5;
     }
 }

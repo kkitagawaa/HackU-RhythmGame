@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -78,20 +79,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // private int combo;
-    // private int score;
+    private float aEndTime;
 
-    // private int perfect;
-    // private int great;
-    // private int bad;
-    // private int miss;
+    
+    [SerializeField] GameObject finish;
+
+    private bool hasFished = false;
 
     public void Awake()
     {
         if (GameManager.instance == null)
         {
             GameManager.instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);
@@ -104,6 +103,8 @@ public class GameManager : MonoBehaviour
             new AudioIdentifierInstaller().Install();
         }
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+        this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
+
 
         // welknown port 以外の範囲で、ランダムなポートを指定
         int aServerPort = Random.Range(50000, 55000);
@@ -125,18 +126,41 @@ public class GameManager : MonoBehaviour
     {
         if (this.aIsGameStart)
         {
-            if (this.aNotesManager.NoteList.Count <= 0)
+            if (!hasFished && (Time.time > this.aStartTime + this.aEndTime))
             {
+                Debug.Log("Finish");
+                hasFished = true;
                 this.aIsGameStart = false;
-                // MusicManager.Instance.Stop();
+                this.Finish();
             }
         }
     }
 
     public void StartPlay()
     {
+        this.hasFished = false;
         this.aIsGameStart = true;
         this.aStartTime = Time.time;
         MusicManager.Instance.Play("タイフーンパレード");
+    }
+
+    public void Finish()
+    {
+        // this.aIsGameStart = false;
+        GameObject finishObject = GameObject.Find("Finish"); 
+        this.finish.SetActive(true);
+        Invoke("ResultScene", 2.0f);
+    }
+
+    private void Reset()
+    {
+        this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+        this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
+        ScoreModel.Instance.Reset();
+    }
+
+    private void ResultScene()
+    {
+        SceneManager.LoadScene("Result");
     }
 }

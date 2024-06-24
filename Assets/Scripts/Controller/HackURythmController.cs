@@ -33,25 +33,25 @@ public class HackURythmController : MonoBehaviour
 
     public void JudgeCheck(string inputType)
     {
-        Debug.Log(inputType);
+        // Debug.Log(inputType);
         this.aJudge.Judgement(inputType);
         this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction(inputType));
     }
     public void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.D))
-        // {
-        //     this.JudgeCheck("DESK");
-        // }
-        // if (Input.GetKeyDown(KeyCode.F))
-        // {
-        //     this.JudgeCheck("CLAP");
-        // }
-        // if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //     this.aJudge.Judgement("PET");
-        //     this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("PET"));
-        // }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            this.JudgeCheck("DESK");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            this.JudgeCheck("CLAP");
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.aJudge.Judgement("PET");
+            this.aLaneLightList.ForEach(aLaneLight => aLaneLight.LaneAction("PET"));
+        }
         
         this.aJudge.Judgement(null);
 
