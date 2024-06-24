@@ -62,9 +62,9 @@ public class JudgeModel : MonoBehaviour
     private string CheckPassAction(float timeLag)
     {
         // audio.PlayOneShot(hitSound);
-        if (timeLag <= 0.05) return "Perfect";
-        if (timeLag <= 0.08) return "Great";
-        if (timeLag <= 0.10) return "Bad";
+        if (timeLag <= 0.15) return "Perfect";
+        if (timeLag <= 0.20) return "Great";
+        if (timeLag <= 0.25) return "Bad";
         return null;
     }
 

@@ -14,7 +14,38 @@ public class GameManager : MonoBehaviour
 
     private NotesManagerModel aNotesManager;
 
-    private float aNoteSpeed = 8;
+    private UDPActionServer anUdpActionServer;
+    private ExecutableRunner anExecutableRunner;
+
+    // private HackURythmController aHackURythmController;
+
+    private float aMaxScore;
+    public float MaxScore
+    {
+        get
+        {
+            return this.aMaxScore;
+        }
+        set
+        {
+            this.aMaxScore = value;
+        }
+    }
+
+    private float aRatioScore;
+    public float RatioScore
+    {
+        get
+        {
+            return this.aRatioScore;
+        }
+        set
+        {
+            this.aRatioScore = value;
+        }
+    }
+
+    private float aNoteSpeed = 4;
     public float NoteSpeed
     {
         get
@@ -67,9 +98,28 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        if (!AudioIdentifierInstaller.IsInstall())
+        {
+            new AudioIdentifierInstaller().Install();
+        }
         this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
         this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
 
+
+        // welknown port 以外の範囲で、ランダムなポートを指定
+        int aServerPort = Random.Range(50000, 55000);
+        int aReceiverPort = Random.Range(55001, 60000);
+
+        this.anUdpActionServer = UDPActionServer.Start(aServerPort, aReceiverPort, HackURythmController.Instance.JudgeCheck);
+
+        this.anExecutableRunner = ExecutableRunner.Run(AudioIdentifierInstaller.ExecutablePath(),
+                                              new string[] { aServerPort.ToString(), aReceiverPort.ToString() });
+    }
+
+    public void OnDestroy()
+    {
+        this.anExecutableRunner.Stop();
+        this.anUdpActionServer.Stop();
     }
 
     public void Update()

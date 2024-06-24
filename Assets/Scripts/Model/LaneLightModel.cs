@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class LaneLightModel : MonoBehaviour
 {
-    private static readonly Dictionary<string, Color> ColorDictionary = new Dictionary<string, Color>()
+    private readonly Dictionary<string, Color> ColorDictionary = new Dictionary<string, Color>()
     {
         { "DESK", Color.white },
-        { "CLAP", Color.yellow},
+        { "CLAP", Color.yellow },
         { "PET", Color.cyan },
         { "EMPTY_BOX", new Color(1, 1, 1) }
     };
