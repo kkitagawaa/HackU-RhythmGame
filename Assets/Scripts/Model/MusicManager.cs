@@ -38,6 +38,7 @@ public class MusicManager : MonoBehaviour
     {
         this.anAudioSource = this.GetComponent<AudioSource>();
         this.anAudioClip = Resources.Load<AudioClip>("Musics/" + songName);
+        this.anAudioSource.volume = 0.3f;
         this.anAudioSource.PlayOneShot(this.anAudioClip);
         this.aMusicPlayed = true;
     }

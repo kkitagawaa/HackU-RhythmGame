@@ -159,7 +159,6 @@ public class GameManager : MonoBehaviour
         if (GameManager.instance == null)
         {
             GameManager.instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);
@@ -176,18 +175,12 @@ public class GameManager : MonoBehaviour
     {
         if (this.aIsGameStart)
         {
-            if (this.aNotesManager.NoteList.Count <= 0)
-            {
-                this.aIsGameStart = false;
-                // MusicManager.Instance.Stop();
-            }
-
             if (!hasFished && (Time.time > this.aStartTime + this.aEndTime))
             {
                 Debug.Log("Finish");
                 hasFished = true;
+                this.aIsGameStart = false;
                 this.Finish();
-                
             }
         }
     }
@@ -197,20 +190,23 @@ public class GameManager : MonoBehaviour
         this.hasFished = false;
         this.aIsGameStart = true;
         this.aStartTime = Time.time;
-        // this.resetStats();
+        this.Reset();
         MusicManager.Instance.Play("タイフーンパレード");
     }
 
     public void Finish()
     {
         // this.aIsGameStart = false;
+        GameObject finishObject = GameObject.Find("Finish"); 
         this.finish.SetActive(true);
-        Invoke("ResultScene", 3.0f);
+        Invoke("ResultScene", 2.0f);
     }
 
-    private void resetStats()
+    private void Reset()
     {
-        this.aMaxScore = 0;
+        this.aNotesManager = FindObjectsByType<NotesManagerModel>(FindObjectsSortMode.None)[0];
+        this.aEndTime = this.aNotesManager.NoteList[this.aNotesManager.NoteList.Count - 1].ActionRequiredTime;
+
         this.aRatioScore = 0;
         this.combo = 0;
         this.score = 0;

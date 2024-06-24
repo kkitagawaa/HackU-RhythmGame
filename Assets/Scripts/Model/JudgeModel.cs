@@ -53,7 +53,7 @@ public class JudgeModel : MonoBehaviour
         }
         else
         {
-
+            if (this.aNotesManager.NoteList.Count == 0) return;
             NoteData nearestNote = this.aNotesManager.NoteList[0];
             if (Time.time > nearestNote.ActionRequiredTime + 0.2f + GameManager.Instance.StartTime) //本来ノーツをたたくべき時間から0.2秒たっても入力がなかった場合
             {
