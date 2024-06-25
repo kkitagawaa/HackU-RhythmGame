@@ -42,4 +42,10 @@ public class MusicManager : MonoBehaviour
         this.anAudioSource.PlayOneShot(this.anAudioClip);
         this.aMusicPlayed = true;
     }
+    
+    public void Stop()
+    {
+        this.anAudioSource.Stop();
+        this.aMusicPlayed = false;
+    }
 }

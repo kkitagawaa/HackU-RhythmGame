@@ -26,4 +26,9 @@ public class ResultModel : MonoBehaviour
     {
         SceneManager.LoadScene("MusicScene");
     }
+
+    public void BackToSelect()
+    {
+        SceneManager.LoadScene("MusicSelect");
+    }
 }

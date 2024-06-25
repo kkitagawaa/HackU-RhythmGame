@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
         this.hasFished = false;
         this.aIsGameStart = true;
         this.aStartTime = Time.time;
-        MusicManager.Instance.Play("タイフーンパレード");
+        MusicManager.Instance.Play(DataManager.Instance.SelectedMusic);
     }
 
     public void Finish()
