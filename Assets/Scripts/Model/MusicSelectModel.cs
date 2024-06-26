@@ -45,6 +45,7 @@ public class MusicSelectionManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(selectedMusic))
         {
+            MusicManager.Instance.Stop();
             SceneManager.LoadScene("MusicScene");
         }
         else
