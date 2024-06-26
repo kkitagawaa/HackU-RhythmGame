@@ -28,7 +28,7 @@ public class NotesManagerModel : MonoBehaviour
             { "PET", Utils.LoadPrefab<GameObject>("PETNote") },
             // { "EMPTY_BOX", Utils.LoadPrefab<GameObject>("Miss") }
         };
-        this.Load("タイフーンパレード");
+        this.Load(DataManager.Instance.SelectedMusic);
     }
 
     /// <summary>

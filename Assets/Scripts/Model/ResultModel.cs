@@ -24,6 +24,13 @@ public class ResultModel : MonoBehaviour
 
     public void Retry()
     {
+        MusicManager.Instance.Play("tap");
         SceneManager.LoadScene("MusicScene");
+    }
+
+    public void BackToSelect()
+    {
+        MusicManager.Instance.Play("tap");
+        SceneManager.LoadScene("MusicSelect");
     }
 }
