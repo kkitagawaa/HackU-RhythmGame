@@ -10,8 +10,9 @@ public class LaneLightModel : MonoBehaviour
         { "PET", Color.cyan },
         { "EMPTY_BOX", new Color(1, 1, 1) }
     };
-    [SerializeField] private float aLaneAnimationSpeed = 3;
+    private float aLaneAnimationSpeed = 1.5f;
     [SerializeField] private int aLaneNumber;
+    private Color aDefaultColor = new Color(0.38f, 0.30f, 0.79f);
     public int LaneNumber
     {
         get
@@ -20,29 +21,30 @@ public class LaneLightModel : MonoBehaviour
         }
     }
     private Renderer aRenderer;
-    private float aRGBAlfa = 0;
+    private float aRGBAlfa = 0.2f;
     public void Start()
     {
         this.aRenderer = GetComponent<Renderer>();
-        this.paintRequest(this.aRenderer.material.color, this.aRGBAlfa);
+        this.PaintRequest(this.aDefaultColor, this.aRGBAlfa);
     }
     public void Update()
     {
 
-        if (!(this.aRGBAlfa <= 0))
+        if (this.aRGBAlfa > 0.2f)
         {
             this.aRGBAlfa -= aLaneAnimationSpeed * Time.deltaTime;
-            this.paintRequest(this.aRenderer.material.color, this.aRGBAlfa);
+            Color aColor = this.aRGBAlfa > 0.3f ? this.aRenderer.material.color : this.aDefaultColor;
+            this.PaintRequest(aColor, this.aRGBAlfa);
         }
     }
 
-    private void paintRequest(Color baseColor, float aRGBAlfa){
+    private void PaintRequest(Color baseColor, float aRGBAlfa){
         this.aRenderer.material.color = new Color(baseColor.r, baseColor.g, baseColor.b ,aRGBAlfa);
     }
 
     public void LaneAction(string colorType)
     {
-        this.aRGBAlfa = 0.3f;
-        this.paintRequest(ColorDictionary[colorType], this.aRGBAlfa);
+        this.aRGBAlfa = 0.6f;
+        this.PaintRequest(ColorDictionary[colorType], this.aRGBAlfa);
     }
 }
