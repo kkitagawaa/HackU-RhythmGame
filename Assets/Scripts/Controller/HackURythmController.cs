@@ -19,7 +19,7 @@ public class HackURythmController : MonoBehaviour
         if (HackURythmController.instance == null)
         {
             HackURythmController.instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            // DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);

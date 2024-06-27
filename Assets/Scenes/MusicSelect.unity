@@ -1138,8 +1138,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30BF\u30A4\u30D5\u30FC\u30F3\u30D1\u30EC\u30FC\u30C9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 748fe063c80674a3b81832a330d61af5, type: 2}
-  m_sharedMaterial: {fileID: -386254547490035428, guid: 748fe063c80674a3b81832a330d61af5,
+  m_fontAsset: {fileID: 11400000, guid: b1494b3f268bb804895a251d4ab0255b, type: 2}
+  m_sharedMaterial: {fileID: 68167176235569702, guid: b1494b3f268bb804895a251d4ab0255b,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1273,8 +1273,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Shall_we_meet\uFF1F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 748fe063c80674a3b81832a330d61af5, type: 2}
-  m_sharedMaterial: {fileID: -386254547490035428, guid: 748fe063c80674a3b81832a330d61af5,
+  m_fontAsset: {fileID: 11400000, guid: b1494b3f268bb804895a251d4ab0255b, type: 2}
+  m_sharedMaterial: {fileID: 68167176235569702, guid: b1494b3f268bb804895a251d4ab0255b,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
