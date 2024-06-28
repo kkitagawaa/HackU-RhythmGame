@@ -57,7 +57,7 @@ public class AudioIdentifierInstaller
         // インストーラを起動するプロセスを設定します
         Process installerProcess = new Process();
         installerProcess.StartInfo.FileName = "msiexec";
-        installerProcess.StartInfo.Arguments = $"/i {msiPath} /passive TARGETDIR=\"{targetPath}\"";
+        installerProcess.StartInfo.Arguments = $"/i \"{msiPath}\" /passive TARGETDIR=\"{targetPath}\"";
         installerProcess.StartInfo.UseShellExecute = true;
         installerProcess.StartInfo.RedirectStandardOutput = false;
         installerProcess.StartInfo.RedirectStandardError = false;
