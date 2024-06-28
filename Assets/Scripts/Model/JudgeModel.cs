@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using nkjzm.Tests;
 using UnityEngine;
 
@@ -77,7 +78,7 @@ public class JudgeModel : MonoBehaviour
 
     private void ParticleBurst(NoteData aNote)
     {
-        GameObject particleEffect = Utils.LoadPrefab<GameObject>("ParticleEffect");
+        GameObject particleEffect = Utils.LoadPrefab<GameObject>($"Notes{Path.DirectorySeparatorChar}ParticleEffect");
         Instantiate(particleEffect, aNote.NoteGameObject.transform.position, Quaternion.identity);
     }
 

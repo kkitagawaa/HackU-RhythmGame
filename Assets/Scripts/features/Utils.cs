@@ -19,10 +19,7 @@ namespace nkjzm.Tests
         /// <returns>プレハブの参照（見つからなかった場合はnullを返す）</returns>
         public static T LoadPrefab<T>(string fileName) where T : Object
         {
-            var filePath = AssetDatabase.FindAssets($"{fileName} t:Prefab")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(str => Path.GetFileNameWithoutExtension(str) == fileName);
-            return AssetDatabase.LoadAssetAtPath<T>(filePath);
+            return Resources.Load<T>($"Prefab{Path.DirectorySeparatorChar}{fileName}");
         }
     }
 }

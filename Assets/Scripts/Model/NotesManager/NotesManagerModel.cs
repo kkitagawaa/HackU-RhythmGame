@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using nkjzm.Tests;
 using UnityEngine;
 
@@ -23,9 +24,9 @@ public class NotesManagerModel : MonoBehaviour
     {
         this.aBaseNoteObjects = new Dictionary<string, GameObject>()
         {
-            { "DESK", Utils.LoadPrefab<GameObject>("DeskNote") },
-            { "CLAP", Utils.LoadPrefab<GameObject>("ClapNote") },
-            { "PET", Utils.LoadPrefab<GameObject>("PETNote") },
+            { "DESK", Utils.LoadPrefab<GameObject>($"Notes{Path.DirectorySeparatorChar}DeskNote") },
+            { "CLAP", Utils.LoadPrefab<GameObject>($"Notes{Path.DirectorySeparatorChar}ClapNote") },
+            // { "PET", Utils.LoadPrefab<GameObject>("PETNote") },
             // { "EMPTY_BOX", Utils.LoadPrefab<GameObject>("Miss") }
         };
         this.Load(DataManager.Instance.SelectedMusic);
