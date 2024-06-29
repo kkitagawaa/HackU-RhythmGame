@@ -14,12 +14,12 @@
         "**/*.pdf": true,
         "**/*.mid": true,
         "**/*.midi": true,
-        "**/*.wav": true,
+        "**/*.wav": false,
         "**/*.gif": true,
         "**/*.ico": true,
-        "**/*.jpg": true,
-        "**/*.jpeg": true,
-        "**/*.png": true,
+        "**/*.jpg": false,
+        "**/*.jpeg": false,
+        "**/*.png": false,
         "**/*.psd": true,
         "**/*.tga": true,
         "**/*.tif": true,
@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "HackU RhythmGame.sln"
+    "dotnet.defaultSolution": "HackU-RhythmGame.sln"
 }
